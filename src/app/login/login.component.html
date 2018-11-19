@@ -1,0 +1,45 @@
+<mat-card class="login-box">
+    <form [formGroup]="formLogin" (submit)="autenticar()">
+        <mat-card-header>
+            <mat-card-title>
+                <h2>EKKLESIA</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div fxLayout="row">
+                <div fxFlex>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Login" maxlength="50" formControlName="login">
+                        <mat-error *ngIf="formLogin.get('login').errors?.required">
+                            Campo obrigatório
+                        </mat-error>
+                        <mat-error *ngIf="formLogin.get('login').errors?.maxlength">
+                            Mais que 50 caracteres.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row">
+                <div fxFlex>
+                    <mat-form-field fxFlex>
+                        <input matInput placeholder="Senha" type="password" maxlength="20" formControlName="senha">
+                        <mat-error *ngIf="formLogin.get('senha').errors?.required">
+                            Campo obrigatório
+                        </mat-error>
+                        <mat-error *ngIf="formLogin.get('senha').errors?.maxlength">
+                            Mais que 30 caracteres.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div fxLayout="row">
+                <div fxFlex="50" fxLayoutAlign="start center">Esqueceu a senha?</div>
+                <div fxFlex="50" fxLayoutAlign="end center">
+                    <button type="submit" [disabled]='formLogin.invalid' mat-raised-button color="primary">ENTRAR</button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </form>
+</mat-card>
