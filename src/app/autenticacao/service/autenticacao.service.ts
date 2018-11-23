@@ -8,11 +8,14 @@ import {tap} from 'rxjs/operators';
 export class AutenticacaoService{
     constructor(private http:HttpClient, private tokenService: TokenService){}
 
-    autenticar(email:string, password:string){
-        return this.http.post('http://localhost:8081/v1/token/generate', 
-        {email, password}, {observe: 'response'})
+    autenticar(username:string, password:string){
+        const headers = new HttpHeaders({
+            'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+            'Authorization': 'Basic '+ btoa('ekklesia:ekklesia-client')});
+        return this.http.post(
+            'http://localhost:9092/oauth/token',{username, password}, {headers:headers, params:{grant_type:'password', username, password}})
         .pipe(tap(res =>{
-            this.tokenService.armazena(res.body['token']);
+            console.log(res);
         }))
     }
 }
