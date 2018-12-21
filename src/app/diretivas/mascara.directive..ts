@@ -14,6 +14,7 @@ export class MascaraDirective implements ControlValueAccessor {
     onChange: any;
 
     @Input('mascara') mascara: string;
+    mascaraParaAplicacao:string;
 
     writeValue(obj: any): void {
 
@@ -30,10 +31,19 @@ export class MascaraDirective implements ControlValueAccessor {
 
     @HostListener('keyup', ['$event'])
     onKeyup($event: any) {
+        this.mascaraParaAplicacao = this.mascara;
         var valor = $event.target.value.replace(/\D/g, '');
-        var pad = this.mascara.replace(/\D/g, '').replace(/9/g, '_');
+        if(this.mascaraParaAplicacao.indexOf('?') > - 1){
+            var mascaraSemCaracteresEspeciais = this.mascaraParaAplicacao.replace(/\D/g, '');
+            if(valor.length < mascaraSemCaracteresEspeciais.length){
+                this.mascaraParaAplicacao = this.mascaraParaAplicacao.replace(
+                    this.mascaraParaAplicacao.substring(this.mascaraParaAplicacao.indexOf('?') - 1, this.mascaraParaAplicacao.indexOf('?') + 1), '');
+            }else{
+                this.mascaraParaAplicacao = this.mascaraParaAplicacao.replace('?', '');
+            }
+        }
+        var pad = this.mascaraParaAplicacao.replace(/\D/g, '').replace(/9/g, '_');
         var valorMascara = valor + pad.substring(0, pad.length - valor.length);
-
         // retorna caso pressionado backspace
         if ($event.keyCode === 8) {
             this.onChange(valor);
@@ -46,14 +56,16 @@ export class MascaraDirective implements ControlValueAccessor {
 
         var valorMascaraPos = 0;
         valor = '';
-        for (var i = 0; i < this.mascara.length; i++) {
-            if (isNaN(parseInt(this.mascara.charAt(i)))) {
-                valor += this.mascara.charAt(i);
+        for (var i = 0; i < this.mascaraParaAplicacao.length; i++) {
+            if (isNaN(parseInt(this.mascaraParaAplicacao.charAt(i)))) {
+                valor += this.mascaraParaAplicacao.charAt(i);
             } else {
                 valor += valorMascara[valorMascaraPos++];
             }
         }
-
+        if(valor.indexOf('?') > -1){
+            valor = valor.substr(0, valor.indexOf('?'));
+        }
         if (valor.indexOf('_') > -1) {
             valor = valor.substr(0, valor.indexOf('_'));
         }
@@ -63,7 +75,7 @@ export class MascaraDirective implements ControlValueAccessor {
 
     @HostListener('blur', ['$event'])
     onBlur($event: any) {
-        if ($event.target.value.length === this.mascara.length) {
+        if ($event.target.value.length === this.mascaraParaAplicacao.length) {
             return;
         }
         this.onChange('');

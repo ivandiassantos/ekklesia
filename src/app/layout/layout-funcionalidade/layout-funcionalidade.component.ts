@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-layout-funcionalidade',

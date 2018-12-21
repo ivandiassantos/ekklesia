@@ -1,48 +1,48 @@
 import { MatSnackBar } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MembroService } from './service/membro.service';
-import { CadastroBasico } from './model/cadastro-basico';
-import { TipoTelefone } from './../telefone/model/tipo-telefone';
-import { Telefone } from './../telefone/model/telefone';
-import { CEP } from './../cep/cep';
 import { ConsultaCEPService } from './../cep/consulta-cep.service';
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { DominioService } from "../dominio/service/dominio.service";
-import { Dominio } from "../dominio/model/dominio";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DominioService } from '../dominio/service/dominio.service';
+import { Dominio } from '../dominio/model/dominio';
+import { UF } from '../dominio/model/uf';
+import { Profissao } from './model/profissao';
+import { TipoTelefone } from './model/tipo-telefone';
+import { Telefone } from './model/telefone';
+import { Membro } from './model/membro';
+import { Endereco } from './model/endereco';
+import { MembroBuilder } from './builder/membro-builder';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './cadastra-membro.component.html'
 })
 export class CadastraMembroComponent implements OnInit {
     identificacaoFormGroup: FormGroup;
-    identidadeEclesiasticaFormGroup: FormGroup;
-    admissaoFormGroup: FormGroup;
-    profissaoDeFeFormGroup: FormGroup;
     informacoesResidenciaisFormGroup: FormGroup;
-    familiaFormGroup: FormGroup;
-    alocacaoFormGroup: FormGroup;
-    formasDeContatoFormGroup: FormGroup;
-    listaSexo: Dominio[] = [];
-    listaEstadosCivis: Dominio[] = [];
-    listaEstados: Dominio[] = [];
+    emailFormGroup:FormGroup;
+    telefonesFormGroup:FormGroup;
+    listaEstados: UF[] = [];
     listaEscolaridades: Dominio[] = [];
-    listaTiposMembro: Dominio[] = [];
-    listaSituacoesOficialato: Dominio[] = [];
-    listaTiposCadastroRol: Dominio[] = [];
-    listaProcedencia: Dominio[] = [];
-    listaMeiosAdmissao: Dominio[] = [];
-    listaTiposAlocacao: Dominio[] = [];
+    listaProfissoes: Profissao[] = [];
+    listaEstadosCivis:Dominio[] = [];
+    listaTiposTelefone:TipoTelefone[] = [];
+    listaTelefones:Telefone[] = [];
+    listaSexo: Dominio[];
+    listaAlocacao: Dominio[];
 
     constructor(private formBuilder: FormBuilder,
         private dominioService: DominioService,
         private consultaCEPService: ConsultaCEPService,
         private membroService: MembroService,
-        private snackBar: MatSnackBar) { }
+        private snackBar: MatSnackBar,
+        private router: Router) { }
 
     ngOnInit() {
         this.identificacaoFormGroup = this.formBuilder.group({
             cpf: ['', [Validators.required, Validators.maxLength(11)]],
-            nomeCompleto: ['', [Validators.required, Validators.maxLength(150)]],
+            nome: ['', [Validators.required, Validators.maxLength(150)]],
             dataNascimento: [''],
             sexo: [''],
             rg: ['', [Validators.maxLength(15)]],
@@ -57,36 +57,29 @@ export class CadastraMembroComponent implements OnInit {
         });
         this.informacoesResidenciaisFormGroup = this.formBuilder.group({
             cep: ['', [Validators.required, Validators.maxLength]],
-            endereco: ['', [Validators.required, Validators.maxLength]],
+            rua: ['', [Validators.required, Validators.maxLength]],
             numero: ['', [Validators.maxLength]],
             complemento: ['', [Validators.maxLength]],
             bairro: ['', [Validators.required, Validators.maxLength]],
             cidade: ['', [Validators.required, Validators.maxLength]],
-            estado: ['', [Validators.required, Validators.maxLength]],
+            uf: ['', [Validators.required, Validators.maxLength]],
             pontoReferencia: ['', [Validators.maxLength]]
         });
-        this.formasDeContatoFormGroup = this.formBuilder.group({
-            email: ['', [Validators.required, Validators.maxLength, Validators.email]],
-            dddTelefone: ['', [Validators.required, Validators.maxLength]],
-            numeroTelefone: ['', [Validators.required, Validators.maxLength]],
-            tipoTelefone: ['', [Validators.required]]
+        this.emailFormGroup = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.maxLength, Validators.email]]
         });
-        // this.identidadeEclesiasticaFormGroup = this.formBuilder.group({});
-        // this.admissaoFormGroup = this.formBuilder.group({});
-        // this.profissaoDeFeFormGroup = this.formBuilder.group({});
-        // this.familiaFormGroup = this.formBuilder.group({});
-        // this.alocacaoFormGroup = this.formBuilder.group({});
-
-        // this.dominioService.listarSexos().subscribe(listaSexo => {this.listaSexo = listaSexo});
-        // this.dominioService.listarEstadosCivis().subscribe(listaEstadosCivis => {this.listaEstadosCivis = listaEstadosCivis});
+        this.telefonesFormGroup = this.formBuilder.group({
+            ddd: ['', [Validators.maxLength(2)]],
+            numero: ['', [Validators.maxLength(10)]],
+            tipoTelefone: ['']
+        });
+        this.dominioService.listarSexo().subscribe(listaSexo =>{this.listaSexo = listaSexo});
+        this.dominioService.listarAlocacao().subscribe(listaAlocacao =>{this.listaAlocacao = listaAlocacao});
         this.dominioService.listarEstados().subscribe(listaEstados => { this.listaEstados = listaEstados });
-        // this.dominioService.listarEscolaridades().subscribe(listaEscolaridades => {this.listaEscolaridades = listaEscolaridades});
-        // this.dominioService.listarTiposMembro().subscribe(listaTiposMembro => {this.listaTiposMembro = listaTiposMembro});
-        // this.dominioService.listarSituacoesOficialato().subscribe(listaSituacoesOficialato => {this.listaSituacoesOficialato = listaSituacoesOficialato});
-        // this.dominioService.listarTiposCadastroRol().subscribe(listaTiposCadastroRol => {this.listaTiposCadastroRol = listaTiposCadastroRol});
-        // this.dominioService.listarProcedencia().subscribe(listaProcedencia => {this.listaProcedencia = listaProcedencia});
-        // this.dominioService.listarMeiosAdmissao().subscribe(listaMeiosAdmissao => {this.listaMeiosAdmissao = listaMeiosAdmissao});
-        //this.dominioService.listarTiposAlocacao().subscribe(listaTiposAlocacao => {this.listaTiposAlocacao = listaTiposAlocacao});
+        this.dominioService.listarEscolaridades().subscribe(listaEscolaridades => {this.listaEscolaridades = listaEscolaridades});
+        this.dominioService.listarProfissoes().subscribe(listaProfissoes =>{this.listaProfissoes = listaProfissoes});
+        this.dominioService.listarEstadosCivis().subscribe(listaEstadosCivis =>{this.listaEstadosCivis = listaEstadosCivis});
+        this.dominioService.listarTiposTelefone().subscribe(listaTiposTelefone =>{this.listaTiposTelefone = listaTiposTelefone}); 
     }
 
     consultaCEP() {
@@ -98,15 +91,34 @@ export class CadastraMembroComponent implements OnInit {
                     this.informacoesResidenciaisFormGroup.get('complemento').setValue(resposta.complemento);
                     this.informacoesResidenciaisFormGroup.get('bairro').setValue(resposta.bairro);
                     this.informacoesResidenciaisFormGroup.get('cidade').setValue(resposta.localidade);
-                    this.informacoesResidenciaisFormGroup.get('estado').setValue(resposta.uf);
+                    this.informacoesResidenciaisFormGroup.get('uf').setValue(resposta.uf);
                 }
             );
     }
 
     salvar() {
-        let cadastroBasico = this.identificacaoFormGroup.getRawValue() as CadastroBasico;
-        this.membroService.cadastrar(cadastroBasico).subscribe(
+        const endereco = this.informacoesResidenciaisFormGroup.getRawValue() as Endereco;
+        const membro = new MembroBuilder()
+            .nome(this.identificacaoFormGroup.get('nome').value)
+            .cpf(this.identificacaoFormGroup.get('cpf').value)
+            .dataNascimento(this.identificacaoFormGroup.get('dataNascimento').value)
+            .sexo(this.identificacaoFormGroup.get('sexo').value)
+            .rg(this.identificacaoFormGroup.get('rg').value)
+            .orgaoEmissor(this.identificacaoFormGroup.get('orgaoEmissor').value)
+            .naturalidade(this.identificacaoFormGroup.get('naturalidade').value)
+            .ufNaturalidade(this.identificacaoFormGroup.get('ufNaturalidade').value)
+            .escolaridade(this.identificacaoFormGroup.get('escolaridade').value)
+            .profissao(this.identificacaoFormGroup.get('profissao').value)
+            .estadoCivil(this.identificacaoFormGroup.get('estadoCivil').value)
+            .informacaoAdicional(this.identificacaoFormGroup.get('informacaoAdicional').value)
+            .alocacao(this.identificacaoFormGroup.get('alocacao').value)
+            .endereco(endereco)
+            .telefones(this.listaTelefones)
+        .build();
+        
+        this.membroService.cadastrar(membro).subscribe(
             resposta => {
+                this.router.navigate(['/lista-membros']);
                 this.snackBar.open('Dados cadastrados com sucesso.', '', {
                     duration: 4000,
                 });
@@ -117,8 +129,30 @@ export class CadastraMembroComponent implements OnInit {
                 });
             }
         );
-
-        console.log(cadastroBasico);
     }
 
+    adicionarTelefone(){
+        let telefone = this.telefonesFormGroup.getRawValue() as Telefone;
+        let codigoTipoTelefone = parseInt(this.telefonesFormGroup.get('tipoTelefone').value);
+        this.listaTiposTelefone.forEach(tipo => {
+            if(tipo.id === codigoTipoTelefone)
+                telefone.tipoTelefone = tipo;
+        });
+        this.listaTelefones.push(telefone);
+    }
+
+    editarTelefone(telefone){
+        this.telefonesFormGroup.get('tipoTelefone').setValue(telefone.tipoTelefone.id+'');
+        this.telefonesFormGroup.get('ddd').setValue(telefone.ddd);
+        this.telefonesFormGroup.get('numero').setValue(telefone.numero);
+        this.listaTelefones.splice(telefone, 1);
+    }
+
+    excluirTelefone(telefone){
+        this.listaTelefones.splice(telefone, 1);
+    }
+
+    addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+        console.log('Evento: '+type, event.value);   
+    }
 }

@@ -92,3 +92,11 @@ body{
   .example-icon {
     padding: 0 14px;
   }
+
+  .tabelaTelefones{
+    width: 100%;
+  }
+
+  .resultadoPesquisa{
+    width: 100%;
+  }

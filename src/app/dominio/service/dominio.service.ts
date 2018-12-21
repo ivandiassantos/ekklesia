@@ -1,6 +1,9 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Dominio } from "../model/dominio";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Dominio } from '../model/dominio';
+import { UF } from '../model/uf';
+import { Profissao } from 'src/app/membro/model/profissao';
+import { TipoTelefone } from 'src/app/membro/model/tipo-telefone';
 
 @Injectable({
     providedIn: 'root'
@@ -9,43 +12,31 @@ export class DominioService{
     
     constructor(private httpClient:HttpClient){}
 
-    listarSexos(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/sexo');
+    listarAlocacao() {
+        return this.httpClient.get<Dominio[]>('http://localhost:9093/v1/dominio/alocacao');
     }
 
     listarEstadosCivis(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/estadocivil');
+        return this.httpClient.get<Dominio[]>('http://localhost:9093/v1/dominio/estadocivil');
     }
 
     listarEscolaridades(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/escolaridade');
+        return this.httpClient.get<Dominio[]>('http://localhost:9093/v1/dominio/escolaridade');
     }
 
     listarEstados(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/uf');
+        return this.httpClient.get<UF[]>('http://localhost:9093/v1/dominio/uf');
     }
 
-    listarTiposMembro(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/tipomembro');
+    listarProfissoes(){
+        return this.httpClient.get<Profissao[]>('http://localhost:9093/v1/dominio/profissao');
     }
 
-    listarSituacoesOficialato(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/situacaooficialato');
+    listarTiposTelefone(){
+        return this.httpClient.get<TipoTelefone[]>('http://localhost:9093/v1/dominio/tipotelefone');
     }
 
-    listarTiposCadastroRol(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/cadastrorol');
-    }
-
-    listarProcedencia(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/procedencia');
-    }
-
-    listarMeiosAdmissao(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/meioadmissao');
-    }
-
-    listarTiposAlocacao(){
-        return this.httpClient.get<Dominio[]>('http://localhost:8081/v1//dominio/alocacao');
+    listarSexo(){
+        return this.httpClient.get<Dominio[]>('http://localhost:9093/v1/dominio/sexo');
     }
 }

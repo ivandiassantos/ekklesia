@@ -1,30 +1,22 @@
 export class Usuario{
    
-    private _id:number;
-    private _email:string;
-    private _senha:string;
+    private _username:string;
+    private _password:string;
+    private _grant_type:string;
 
-    /**
-     * Getter id
-     * @return {number}
-     */
-	public get id(): number {
-		return this._id;
+    constructor(username:string){
+        this._username = username;
+    }
+
+    public get username(): string {
+		return this._username;
 	}
 
-    /**
-     * Getter email
-     * @return {string}
-     */
-	public get email(): string {
-		return this._email;
-	}
-
-    /**
-     * Getter senha
-     * @return {string}
-     */
-	public get senha(): string {
-		return this._senha;
+    public get password(): string {
+		return this._password;
+    }
+    
+    public get grant_type(): string {
+		return this._grant_type;
 	}
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { LayoutFuncionalidadeComponent } from './layout/layout-funcionalidade/layout-funcionalidade.component';
 import { ListaMembrosComponent } from './membro/lista-membros.component';
 import { CadastraMembroComponent } from './membro/cadastra-membro.component';
+import { AlteraCadastroMembroComponent } from './membro/altera-cadastro-membro-component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,16 @@ const routes: Routes = [
        {
          path: 'cadastra-membro',
          component: CadastraMembroComponent
+       }
+     ]
+   },
+   {
+     path: '',
+     component: LayoutFuncionalidadeComponent,
+     children:[
+       {
+         path:'altera-cadastro-membro/:idMembro',
+         component:AlteraCadastroMembroComponent
        }
      ]
    }
