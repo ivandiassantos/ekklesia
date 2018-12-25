@@ -3,7 +3,7 @@ import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-    templateUrl: './cadastra-membro.component.html'
+    templateUrl: './altera-cadastro-membro.component.html'
 })
 export class AlteraCadastroMembroComponent implements OnInit{
     // identificacaoFormGroup:FormGroup;
