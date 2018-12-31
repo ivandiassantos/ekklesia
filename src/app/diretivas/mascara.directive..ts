@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener } from '@angular/core';
+import { Directive, Input, HostListener, ElementRef, Renderer } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Directive({
@@ -16,8 +16,10 @@ export class MascaraDirective implements ControlValueAccessor {
     @Input('mascara') mascara: string;
     mascaraParaAplicacao:string;
 
-    writeValue(obj: any): void {
+    constructor(private element:ElementRef, private render:Renderer){}
 
+    writeValue(obj: any): void {
+        this.render.setElementAttribute(this.element.nativeElement, 'value', obj);
     }
     registerOnChange(fn: any): void {
         this.onChange = fn;

@@ -8,5 +8,32 @@
         </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
+        <mat-horizontal-stepper [linear]="true" #stepper>
+            <mat-step [stepControl]="identificacaoFormGroup">
+                <form *ngIf="membro | async; else loading" [formGroup]="identificacaoFormGroup">
+                    <ng-template matStepLabel>Identificação</ng-template>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex="50">
+                            <mat-form-field fxFlex>
+                                <input matInput placeholder="CPF" formControlName="cpf" mascara="999.999.999-99">
+                                <mat-error *ngIf="identificacaoFormGroup.get('cpf').errors?.required">
+                                    Campo obrigatório
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div fxFlex="50">
+                            <mat-form-field fxFlex>
+                                <input matInput placeholder="Nome Completo" formControlName="nome" maxlength="150">
+                                <mat-error *ngIf="identificacaoFormGroup.get('nome').errors?.required">
+                                    Campo obrigatório
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-horizontal-stepper>
     </mat-card-content>
 </mat-card>
