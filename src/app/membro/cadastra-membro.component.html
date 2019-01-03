@@ -36,7 +36,7 @@
                         <div fxFlex="50">
                             <mat-form-field>
                                 <input matInput [matDatepicker]="dataNascimento" placeholder="Data de Nascimento" 
-                                    formControlName="dataNascimento" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                                    formControlName="dataNascimento">
                                 <mat-datepicker-toggle matSuffix [for]="dataNascimento"></mat-datepicker-toggle>
                                 <mat-datepicker #dataNascimento></mat-datepicker>
                             </mat-form-field>

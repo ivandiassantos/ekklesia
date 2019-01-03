@@ -1,35 +1,41 @@
 import { OnInit, Component } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {Validators, FormGroup,  FormBuilder} from '@angular/forms';
 import { ActivatedRoute } from "@angular/router";
-import { MembroService } from "./service/membro.service";
 import { Membro } from "./model/membro";
+import { MembroService } from "./service/membro.service";
 import { MatSnackBar } from "@angular/material";
-import { Observable } from "rxjs";
+import { BaseCadastroMembroComponent } from "./base-cadastro-membro-component";
+import { ConsultaCEPService } from "../cep/consulta-cep.service";
+import { DominioService } from "../dominio/service/dominio.service";
 import { tap } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Component({
     templateUrl: './altera-cadastro-membro.component.html'
 })
-export class AlteraCadastroMembroComponent implements OnInit {
+export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
+    identificacaoFormGroup:FormGroup;
     membro:Observable<Membro>;
-    identificacaoFormGroup: FormGroup;
-    constructor(private route: ActivatedRoute,
-        private membroService: MembroService,
-        private snackBar: MatSnackBar,
-        private formBuilder:FormBuilder) {
-
+    snackBar: MatSnackBar;
+    constructor(private route:ActivatedRoute, 
+        membroService:MembroService,
+        snackBar: MatSnackBar,
+        formBuilder:FormBuilder,
+        dominioService:DominioService,
+        consultaCEPService:ConsultaCEPService){
+        super(formBuilder, dominioService, consultaCEPService, membroService);
+        this.snackBar = snackBar;
     }
-    ngOnInit() {
-        this.identificacaoFormGroup = this.formBuilder.group({
-            cpf: ['', [Validators.required, Validators.maxLength(11)]],
-            nome: ['', [Validators.required, Validators.maxLength(150)]]
-        });
+    executaAcoesExpecificasFuncionalidade() {
         this.membro = this.membroService.obterPor(this.route.snapshot.params.idMembro).pipe(
             tap(membro => {
+                debugger;
                 this.identificacaoFormGroup.get('cpf').setValue(membro.cpf);
                 this.identificacaoFormGroup.get('nome').setValue(membro.nome);
+                this.identificacaoFormGroup.get('sexo').setValue(membro.sexo);
             })
         );
+        
     }
 
 }
