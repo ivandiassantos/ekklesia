@@ -1,5 +1,4 @@
 import { MatSnackBar } from '@angular/material';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MembroService } from './service/membro.service';
 import { ConsultaCEPService } from './../cep/consulta-cep.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,9 +14,34 @@ import { Endereco } from './model/endereco';
 import { MembroBuilder } from './builder/membro-builder';
 import { Router } from '@angular/router';
 import { BaseCadastroMembroComponent } from './base-cadastro-membro-component';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import * as _moment from 'moment';
+import { defaultFormatUtc as _rollupMoment } from 'moment';
+import 'moment/locale/pt-br';
+
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
-    templateUrl: './cadastra-membro.component.html'
+    templateUrl: './cadastra-membro.component.html',
+    providers: [
+
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+      ]
 })
 export class CadastraMembroComponent extends BaseCadastroMembroComponent {
     identificacaoFormGroup: FormGroup;
@@ -104,5 +128,9 @@ export class CadastraMembroComponent extends BaseCadastroMembroComponent {
 
     excluirTelefone(telefone) {
         this.listaTelefones.splice(telefone, 1);
+    }
+
+    change(dateEvent) {
+        console.log(dateEvent.value);
     }
 }

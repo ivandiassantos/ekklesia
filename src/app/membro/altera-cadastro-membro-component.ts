@@ -1,14 +1,14 @@
-import { OnInit, Component } from "@angular/core";
+import { OnInit, Component } from '@angular/core';
 import {Validators, FormGroup,  FormBuilder} from '@angular/forms';
-import { ActivatedRoute } from "@angular/router";
-import { Membro } from "./model/membro";
-import { MembroService } from "./service/membro.service";
-import { MatSnackBar } from "@angular/material";
-import { BaseCadastroMembroComponent } from "./base-cadastro-membro-component";
-import { ConsultaCEPService } from "../cep/consulta-cep.service";
-import { DominioService } from "../dominio/service/dominio.service";
-import { tap } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { ActivatedRoute } from '@angular/router';
+import { Membro } from './model/membro';
+import { MembroService } from './service/membro.service';
+import { MatSnackBar } from '@angular/material';
+import { BaseCadastroMembroComponent } from './base-cadastro-membro-component';
+import { ConsultaCEPService } from '../cep/consulta-cep.service';
+import { DominioService } from '../dominio/service/dominio.service';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
     templateUrl: './altera-cadastro-membro.component.html'

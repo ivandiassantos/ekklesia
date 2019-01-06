@@ -1,13 +1,13 @@
-import { OnInit } from "@angular/core";
-import { FormGroup, Validators, FormBuilder } from "@angular/forms";
-import { UF } from "../dominio/model/uf";
-import { Dominio } from "../dominio/model/dominio";
-import { Profissao } from "./model/profissao";
-import { TipoTelefone } from "./model/tipo-telefone";
-import { Telefone } from "./model/telefone";
-import { DominioService } from "../dominio/service/dominio.service";
-import { ConsultaCEPService } from "../cep/consulta-cep.service";
-import { MembroService } from "./service/membro.service";
+import { OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UF } from '../dominio/model/uf';
+import { Dominio } from '../dominio/model/dominio';
+import { Profissao } from './model/profissao';
+import { TipoTelefone } from './model/tipo-telefone';
+import { Telefone } from './model/telefone';
+import { DominioService } from '../dominio/service/dominio.service';
+import { ConsultaCEPService } from '../cep/consulta-cep.service';
+import { MembroService } from './service/membro.service';
 
 export abstract class BaseCadastroMembroComponent implements OnInit{
     identificacaoFormGroup: FormGroup;

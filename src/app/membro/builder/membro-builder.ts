@@ -1,6 +1,6 @@
-import { Membro } from "../model/membro";
-import { Endereco } from "../model/endereco";
-import { Telefone } from "../model/telefone";
+import { Membro } from '../model/membro';
+import { Endereco } from '../model/endereco';
+import { Telefone } from '../model/telefone';
 
 export class MembroBuilder{
     private _cpf:string;

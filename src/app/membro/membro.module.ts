@@ -3,7 +3,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListaMembrosComponent, DialogConfirmacaoExclusao } from './lista-membros.component';
 import {MatRadioModule} from '@angular/material/radio';
-import { MatCardModule, MatButtonModule, MatStepperModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatIconModule, MatTooltipModule, MatTableModule, MatMenuModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatCardModule, 
+    MatButtonModule, 
+    MatStepperModule, 
+    MatInputModule, 
+    MatSelectModule,  
+    MatCheckboxModule, 
+    MatIconModule, 
+    MatTooltipModule, 
+    MatTableModule, 
+    MatMenuModule, 
+    MatPaginatorModule, 
+    MatSortModule, 
+    MatDatepickerModule} from '@angular/material';
 import { CadastraMembroComponent } from './cadastra-membro.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,8 +33,6 @@ import { AlteraCadastroMembroComponent } from './altera-cadastro-membro-componen
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
         MatCheckboxModule,
         RouterModule,
         MatIconModule,
@@ -31,7 +41,8 @@ import { AlteraCadastroMembroComponent } from './altera-cadastro-membro-componen
         MatSortModule,
         MatPaginatorModule,
         MatMenuModule,
-        MascaraModule
+        MascaraModule,
+        MatDatepickerModule
     ],
     declarations: [
         ListaMembrosComponent, 
