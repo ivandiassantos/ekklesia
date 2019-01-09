@@ -75,6 +75,7 @@ export class CadastraMembroComponent extends BaseCadastroMembroComponent {
     }
 
     salvar() {
+        debugger;
         const endereco = this.informacoesResidenciaisFormGroup.getRawValue() as Endereco;
         const membro = new MembroBuilder()
             .nome(this.identificacaoFormGroup.get('nome').value)

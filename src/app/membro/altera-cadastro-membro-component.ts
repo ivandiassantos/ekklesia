@@ -85,19 +85,19 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
     }
 
     alterar(){
-        this.membroService.alterar()
-        .subscribe(
-            resposta => {
-                this.snackBar.open('Dados cadastrados com sucesso.', '', {
-                    duration: 4000,
-                });
-            },
-            erro => {
-                this.snackBar.open('Erro ao alterar os dados.', '', {
-                    duration: 4000,
-                });
-            } 
-        );
+        // this.membroService.alterar()
+        // .subscribe(
+        //     resposta => {
+        //         this.snackBar.open('Dados cadastrados com sucesso.', '', {
+        //             duration: 4000,
+        //         });
+        //     },
+        //     erro => {
+        //         this.snackBar.open('Erro ao alterar os dados.', '', {
+        //             duration: 4000,
+        //         });
+        //     } 
+        // );
     }
 
 }
