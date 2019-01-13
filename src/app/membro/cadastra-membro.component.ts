@@ -75,7 +75,6 @@ export class CadastraMembroComponent extends BaseCadastroMembroComponent {
     }
 
     salvar() {
-        debugger;
         const endereco = this.informacoesResidenciaisFormGroup.getRawValue() as Endereco;
         const membro = new MembroBuilder()
             .nome(this.identificacaoFormGroup.get('nome').value)
@@ -91,6 +90,7 @@ export class CadastraMembroComponent extends BaseCadastroMembroComponent {
             .estadoCivil(this.identificacaoFormGroup.get('estadoCivil').value)
             .informacaoAdicional(this.identificacaoFormGroup.get('informacaoAdicional').value)
             .alocacao(this.identificacaoFormGroup.get('alocacao').value)
+            .dataNascimento(this.identificacaoFormGroup.get('dataNascimento').value)
             .endereco(endereco)
             .telefones(this.listaTelefones)
             .build();

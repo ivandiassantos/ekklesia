@@ -34,15 +34,15 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
             tap(membro => {
                 this.identificacaoFormGroup.get('cpf').setValue(membro.cpf);
                 this.identificacaoFormGroup.get('nome').setValue(membro.nome);
-                this.identificacaoFormGroup.get('sexo').setValue(membro.sexo + '');
+                this.identificacaoFormGroup.get('sexo').setValue(membro.idSexo + '');
                 this.identificacaoFormGroup.get('rg').setValue(membro.rg);
                 this.identificacaoFormGroup.get('orgaoEmissor').setValue(membro.orgaoEmissor);
                 this.identificacaoFormGroup.get('naturalidade').setValue(membro.naturalidade);
-                this.identificacaoFormGroup.get('ufNaturalidade').setValue(membro.ufNaturalidade);
-                this.identificacaoFormGroup.get('escolaridade').setValue(membro.escolaridade + '');
-                this.identificacaoFormGroup.get('profissao').setValue(membro.profissao+ '');
-                this.identificacaoFormGroup.get('estadoCivil').setValue(membro.estadoCivil+ '');
-                this.identificacaoFormGroup.get('alocacao').setValue(membro.alocacao+'');
+                this.identificacaoFormGroup.get('ufNaturalidade').setValue(membro.siglaUfNaturalidade);
+                this.identificacaoFormGroup.get('escolaridade').setValue(membro.idEscolaridade + '');
+                this.identificacaoFormGroup.get('profissao').setValue(membro.idProfissao+ '');
+                this.identificacaoFormGroup.get('estadoCivil').setValue(membro.idEstadoCivil+ '');
+                this.identificacaoFormGroup.get('alocacao').setValue(membro.idAlocacao+'');
                 this.identificacaoFormGroup.get('informacaoAdicional').setValue(membro.informacaoAdicional);
                 
                 let endereco:Endereco = membro.enderecos[0];

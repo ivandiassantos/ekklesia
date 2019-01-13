@@ -7,38 +7,38 @@ export class Membro{
     id:number;
     nome:string;
     dataNascimento:Date;
-    sexo:number;
+    idSexo:number;
     cpf:string;
     rg:String;
     naturalidade:string;
-    ufNaturalidade:string;
+    siglaUfNaturalidade:string;
     orgaoEmissor:string;
-    escolaridade:number;
+    idEscolaridade:number;
     informacaoAdicional:string;
-    alocacao:number;
-    profissao:number;
+    idAlocacao:number;
+    idProfissao:number;
     usuario:Usuario;
-    estadoCivil:number;
+    idEstadoCivil:number;
     telefones:Telefone[] = [];
     enderecos:Endereco[] = [];
 
-    constructor(nome:string, cpf:string, dataNascimento:Date, sexo:number, rg:string, 
-        telefones:Telefone[], enderecos:Endereco[], alocacao:number, informacaoAdicional:string, 
-        estadoCivil:number, profissao:number, escolaridade:number, ufNaturalidade:string, naturalidade:string, 
+    constructor(nome:string, cpf:string, dataNascimento:Date, idSexo:number, rg:string, 
+        telefones:Telefone[], enderecos:Endereco[], idAlocacao:number, informacaoAdicional:string, 
+        idEstadoCivil:number, idProfissao:number, idEscolaridade:number, siglaUfNaturalidade:string, naturalidade:string, 
         orgaoEmissor:string){
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
-        this.sexo = sexo;
+        this.idSexo = idSexo;
         this.rg = rg;
         this.telefones = telefones;
         this.enderecos = enderecos;
-        this.alocacao = alocacao;
+        this.idAlocacao = idAlocacao;
         this.informacaoAdicional = informacaoAdicional;
-        this.estadoCivil = estadoCivil;
-        this.profissao = profissao;
-        this.escolaridade = escolaridade;
-        this.ufNaturalidade = ufNaturalidade;
+        this.idEstadoCivil = idEstadoCivil;
+        this.idProfissao = idProfissao;
+        this.idEscolaridade = idEscolaridade;
+        this.siglaUfNaturalidade = siglaUfNaturalidade;
         this.naturalidade = naturalidade;
         this.orgaoEmissor = orgaoEmissor;
     }

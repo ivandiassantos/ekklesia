@@ -1,21 +1,22 @@
 import { Membro } from '../model/membro';
 import { Endereco } from '../model/endereco';
 import { Telefone } from '../model/telefone';
+import { Moment } from 'moment';
 
 export class MembroBuilder{
     private _cpf:string;
     private _nome:string;
     private _dataNascimento: Date;
-    private _sexo: number;
+    private _idSexo: number;
     private _rg: string;
     private _listaTelefones: Telefone[] = [];
     private _enderecos: Endereco[] = [];
-    private _alocacao: number;
+    private _idAlocacao: number;
     private _informacaoAdicional: string;
-    private _estadoCivil: number;
-    private _profissao: number;
-    private _escolaridade: number;
-    private _ufNaturalidade: string;
+    private _idEstadoCivil: number;
+    private _idProfissao: number;
+    private _idEscolaridade: number;
+    private _siglaUfNaturalidade: string;
     private _naturalidade: string;
     private _orgaoEmissor: string;
 
@@ -29,8 +30,8 @@ export class MembroBuilder{
         return this;
     }
 
-    alocacao(alocacao: number){
-        this._alocacao = alocacao;
+    alocacao(idAlocacao: number){
+        this._idAlocacao = idAlocacao;
         return this;
     }
 
@@ -39,22 +40,22 @@ export class MembroBuilder{
         return this;
     }
 
-    estadoCivil(estadoCivil: number){
-        this._estadoCivil = estadoCivil;
+    estadoCivil(idEstadoCivil: number){
+        this._idEstadoCivil = idEstadoCivil;
         return this;
     }
-    profissao(profissao: number) {
-        this._profissao = profissao;
-        return this;
-    }
-
-    escolaridade(escolaridade: number) {
-        this._escolaridade = escolaridade;
+    profissao(idProfissao: number) {
+        this._idProfissao = idProfissao;
         return this;
     }
 
-    ufNaturalidade(ufNaturalidade: string) {
-        this._ufNaturalidade = ufNaturalidade;
+    escolaridade(idEscolaridade: number) {
+        this._idEscolaridade = idEscolaridade;
+        return this;
+    }
+
+    ufNaturalidade(siglaUfNaturalidade: string) {
+        this._siglaUfNaturalidade = siglaUfNaturalidade;
         return this;
     }
 
@@ -83,20 +84,22 @@ export class MembroBuilder{
         return this;
     }
 
-    dataNascimento(dataNascimento: Date) {
-        this._dataNascimento = dataNascimento;
+    dataNascimento(dataNascimento: Moment) {
+        if(dataNascimento !== null){
+            this._dataNascimento = dataNascimento.toDate();
+        }
         return this;
     }
 
-    sexo(sexo: number){
-        this._sexo = sexo;
+    sexo(idSexo: number){
+        this._idSexo = idSexo;
         return this;
     }
 
     build(){
-        return new Membro(this._nome, this._cpf, this._dataNascimento, this._sexo, 
-            this._rg, this._listaTelefones, this._enderecos, this._alocacao, 
-            this._informacaoAdicional, this._estadoCivil, this._profissao, this._escolaridade,
-            this._ufNaturalidade, this._naturalidade, this._orgaoEmissor);
+        return new Membro(this._nome, this._cpf, this._dataNascimento, this._idSexo, 
+            this._rg, this._listaTelefones, this._enderecos, this._idAlocacao, 
+            this._informacaoAdicional, this._idEstadoCivil, this._idProfissao, this._idEscolaridade,
+            this._siglaUfNaturalidade, this._naturalidade, this._orgaoEmissor);
     }
 }
