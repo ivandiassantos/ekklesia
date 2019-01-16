@@ -86,7 +86,8 @@ export class MembroBuilder{
 
     dataNascimento(dataNascimento: Moment) {
         if(dataNascimento !== null){
-            this._dataNascimento = dataNascimento.toDate();
+            debugger;
+            this._dataNascimento = new Date(dataNascimento.valueOf());
         }
         return this;
     }

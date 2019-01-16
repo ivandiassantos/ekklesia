@@ -8,7 +8,7 @@ export class Endereco{
     rua:string;
     complemento:string ; 
     pontoReferencia:string;
-    uf:string;
+    siglaUf:string;
     cidade:string;
     bairro:string;
     

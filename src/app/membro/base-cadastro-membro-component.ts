@@ -58,7 +58,7 @@ export abstract class BaseCadastroMembroComponent implements OnInit{
             complemento: ['', [Validators.maxLength]],
             bairro: ['', [Validators.required, Validators.maxLength]],
             cidade: ['', [Validators.required, Validators.maxLength]],
-            uf: ['', [Validators.required, Validators.maxLength]],
+            siglaUf: ['', [Validators.required, Validators.maxLength]],
             pontoReferencia: ['', [Validators.maxLength]]
         });
         this.emailFormGroup = this.formBuilder.group({

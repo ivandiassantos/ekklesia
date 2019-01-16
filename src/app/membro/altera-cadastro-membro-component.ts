@@ -52,7 +52,7 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
                 this.informacoesResidenciaisFormGroup.get('complemento').setValue(endereco.complemento);
                 this.informacoesResidenciaisFormGroup.get('bairro').setValue(endereco.bairro);
                 this.informacoesResidenciaisFormGroup.get('cidade').setValue(endereco.cidade);
-                this.informacoesResidenciaisFormGroup.get('uf').setValue(endereco.uf);
+                this.informacoesResidenciaisFormGroup.get('uf').setValue(endereco.siglaUf);
                 this.informacoesResidenciaisFormGroup.get('pontoReferencia').setValue(endereco.pontoReferencia);
 
                 this.emailFormGroup.get('email').setValue('teste@teste.com.br');
