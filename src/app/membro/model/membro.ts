@@ -3,7 +3,6 @@ import { Usuario } from './usuario';
 import { Telefone } from './telefone';
 
 export class Membro{
-
     id:number;
     nome:string;
     dataNascimento:Date;

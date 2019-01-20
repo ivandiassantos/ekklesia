@@ -9,7 +9,6 @@ import { UF } from '../dominio/model/uf';
 import { Profissao } from './model/profissao';
 import { TipoTelefone } from './model/tipo-telefone';
 import { Telefone } from './model/telefone';
-import { Membro } from './model/membro';
 import { Endereco } from './model/endereco';
 import { MembroBuilder } from './builder/membro-builder';
 import { Router } from '@angular/router';
@@ -23,15 +22,15 @@ import 'moment/locale/pt-br';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
 };
 
 @Component({
@@ -39,9 +38,9 @@ export const MY_FORMATS = {
     providers: [
 
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    
+
         { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-      ]
+    ]
 })
 export class CadastraMembroComponent extends BaseCadastroMembroComponent {
     identificacaoFormGroup: FormGroup;
@@ -75,7 +74,6 @@ export class CadastraMembroComponent extends BaseCadastroMembroComponent {
     }
 
     salvar() {
-        debugger;
         const endereco = this.informacoesResidenciaisFormGroup.getRawValue() as Endereco;
         const membro = new MembroBuilder()
             .nome(this.identificacaoFormGroup.get('nome').value)

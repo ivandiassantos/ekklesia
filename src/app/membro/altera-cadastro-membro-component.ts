@@ -1,25 +1,35 @@
-import { OnInit, Component } from "@angular/core";
-import {Validators, FormGroup,  FormBuilder} from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from "@angular/material";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { ActivatedRoute } from "@angular/router";
-import { Membro } from "./model/membro";
-import { MembroService } from "./service/membro.service";
-import { MatSnackBar } from "@angular/material";
-import { BaseCadastroMembroComponent } from "./base-cadastro-membro-component";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 import { ConsultaCEPService } from "../cep/consulta-cep.service";
 import { DominioService } from "../dominio/service/dominio.service";
-import { tap } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { BaseCadastroMembroComponent } from "./base-cadastro-membro-component";
 import { Endereco } from "./model/endereco";
+import { Membro } from "./model/membro";
 import { Telefone } from "./model/telefone";
+import { MembroService } from "./service/membro.service";
+import { MY_FORMATS } from "./cadastra-membro.component";
+import { MembroBuilder } from "./builder/membro-builder";
 
 @Component({
-    templateUrl: './altera-cadastro-membro.component.html'
+    templateUrl: './altera-cadastro-membro.component.html',
+    providers: [
+
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    ]
 })
 export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
     identificacaoFormGroup:FormGroup;
     membro:Observable<Membro>;
     snackBar: MatSnackBar;
     listaTelefones: Telefone[] = [];
+    idMembro: number;
     constructor(private route:ActivatedRoute, 
         membroService:MembroService,
         snackBar: MatSnackBar,
@@ -32,8 +42,10 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
     executaAcoesExpecificasFuncionalidade() {
         this.membro = this.membroService.obterPor(this.route.snapshot.params.idMembro).pipe(
             tap(membro => {
+                this.idMembro = membro.id;
                 this.identificacaoFormGroup.get('cpf').setValue(membro.cpf);
                 this.identificacaoFormGroup.get('nome').setValue(membro.nome);
+                this.identificacaoFormGroup.get('dataNascimento').setValue(membro.dataNascimento);
                 this.identificacaoFormGroup.get('sexo').setValue(membro.idSexo + '');
                 this.identificacaoFormGroup.get('rg').setValue(membro.rg);
                 this.identificacaoFormGroup.get('orgaoEmissor').setValue(membro.orgaoEmissor);
@@ -52,7 +64,7 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
                 this.informacoesResidenciaisFormGroup.get('complemento').setValue(endereco.complemento);
                 this.informacoesResidenciaisFormGroup.get('bairro').setValue(endereco.bairro);
                 this.informacoesResidenciaisFormGroup.get('cidade').setValue(endereco.cidade);
-                this.informacoesResidenciaisFormGroup.get('uf').setValue(endereco.siglaUf);
+                this.informacoesResidenciaisFormGroup.get('siglaUf').setValue(endereco.siglaUf);
                 this.informacoesResidenciaisFormGroup.get('pontoReferencia').setValue(endereco.pontoReferencia);
 
                 this.emailFormGroup.get('email').setValue('teste@teste.com.br');
@@ -60,7 +72,7 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
                 this.listaTelefones = membro.telefones;
             })
         );
-        
+        console.log('Membro:',this.membro);
     }
 
     adicionarTelefone() {
@@ -85,19 +97,38 @@ export class AlteraCadastroMembroComponent extends BaseCadastroMembroComponent{
     }
 
     alterar(){
-        // this.membroService.alterar()
-        // .subscribe(
-        //     resposta => {
-        //         this.snackBar.open('Dados cadastrados com sucesso.', '', {
-        //             duration: 4000,
-        //         });
-        //     },
-        //     erro => {
-        //         this.snackBar.open('Erro ao alterar os dados.', '', {
-        //             duration: 4000,
-        //         });
-        //     } 
-        // );
+        const endereco = this.informacoesResidenciaisFormGroup.getRawValue() as Endereco;
+        const membro = new MembroBuilder()
+            .nome(this.identificacaoFormGroup.get('nome').value)
+            .cpf(this.identificacaoFormGroup.get('cpf').value)
+            .dataNascimento(this.identificacaoFormGroup.get('dataNascimento').value)
+            .sexo(this.identificacaoFormGroup.get('sexo').value)
+            .rg(this.identificacaoFormGroup.get('rg').value)
+            .orgaoEmissor(this.identificacaoFormGroup.get('orgaoEmissor').value)
+            .naturalidade(this.identificacaoFormGroup.get('naturalidade').value)
+            .ufNaturalidade(this.identificacaoFormGroup.get('ufNaturalidade').value)
+            .escolaridade(this.identificacaoFormGroup.get('escolaridade').value)
+            .profissao(this.identificacaoFormGroup.get('profissao').value)
+            .estadoCivil(this.identificacaoFormGroup.get('estadoCivil').value)
+            .informacaoAdicional(this.identificacaoFormGroup.get('informacaoAdicional').value)
+            .alocacao(this.identificacaoFormGroup.get('alocacao').value)
+            .dataNascimento(this.identificacaoFormGroup.get('dataNascimento').value)
+            .endereco(endereco)
+            .telefones(this.listaTelefones)
+            .build();
+        this.membroService.alterar(this.idMembro, membro)
+        .subscribe(
+            resposta => {
+                this.snackBar.open('Dados cadastrados com sucesso.', '', {
+                    duration: 4000,
+                });
+            },
+            erro => {
+                this.snackBar.open('Erro ao alterar os dados.', '', {
+                    duration: 4000,
+                });
+            } 
+        );
     }
 
 }

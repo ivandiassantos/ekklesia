@@ -9,13 +9,13 @@ export class MembroService {
 
     }
 
-    cadastrar(membro:Membro) {
+    cadastrar(membro: Membro) {
         return this.httpClient.post('http://localhost:9093/v1/membro/cadastrobasico', membro);
     }
 
     listar() {
         return this.httpClient.get<Membro[]>('http://localhost:9093/v1/membro/', {
-            headers:new HttpHeaders({'Content-type': 'application/json; charset=utf-8'})
+            headers: new HttpHeaders({ 'Content-type': 'application/json; charset=utf-8' })
         });
     }
 
@@ -25,13 +25,15 @@ export class MembroService {
         });
     }
 
-    alterar(membro:Membro) {
-        return this.httpClient.put('http:localhost:8081/v1/membro/', membro);
+    alterar(idMembro:number, membro: Membro) {
+        return this.httpClient.put('http://localhost:9093/v1/membro/cadastrobasico/' + idMembro, membro, {
+            headers: new HttpHeaders({ 'Content-type': 'application/json; charset=utf-8' })
+        });
     }
 
-    excluir(id:number) {
-        return this.httpClient.delete('http://localhost:9093/v1/membro/'+id,{
-            headers:new HttpHeaders({'Content-type': 'application/json; charset=utf-8'})
+    excluir(id: number) {
+        return this.httpClient.delete('http://localhost:9093/v1/membro/' + id, {
+            headers: new HttpHeaders({ 'Content-type': 'application/json; charset=utf-8' })
         });
     }
 }
