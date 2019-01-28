@@ -6,6 +6,7 @@ import { LayoutFuncionalidadeComponent } from './layout/layout-funcionalidade/la
 import { ListaMembrosComponent } from './membro/lista-membros.component';
 import { CadastraMembroComponent } from './membro/cadastra-membro.component';
 import { AlteraCadastroMembroComponent } from './membro/altera-cadastro-membro-component';
+import { DetalhaCadastroMembroComponent } from './membro/detalha-cadastro-membro.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,17 @@ const routes: Routes = [
          component:AlteraCadastroMembroComponent
        }
      ]
-   }
+   },
+   {
+    path: '',
+    component: LayoutFuncionalidadeComponent,
+    children:[
+      {
+        path:'detalha-cadastro-membro/:idMembro',
+        component:DetalhaCadastroMembroComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

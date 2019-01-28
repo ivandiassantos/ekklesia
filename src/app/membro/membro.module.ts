@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { AlteraCadastroMembroComponent } from './altera-cadastro-membro-component';
+import { DetalhaCadastroMembroComponent } from './detalha-cadastro-membro.component';
 
 @NgModule({
     imports: [
@@ -48,12 +49,14 @@ import { AlteraCadastroMembroComponent } from './altera-cadastro-membro-componen
         ListaMembrosComponent, 
         CadastraMembroComponent,
         DialogConfirmacaoExclusao,
-        AlteraCadastroMembroComponent
+        AlteraCadastroMembroComponent,
+        DetalhaCadastroMembroComponent
     ],
     exports:[
         ListaMembrosComponent, 
         CadastraMembroComponent,
         AlteraCadastroMembroComponent,
+        DetalhaCadastroMembroComponent,
         DialogConfirmacaoExclusao
     ],
     entryComponents:[DialogConfirmacaoExclusao]

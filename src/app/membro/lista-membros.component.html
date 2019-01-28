@@ -27,7 +27,7 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menuAcoes="matMenu">
-                                <button mat-menu-item>
+                                <button mat-menu-item [routerLink]="['/detalha-cadastro-membro', membro.id]">
                                     <mat-icon>view_list</mat-icon>
                                     <span>Detalhar</span>
                                 </button>

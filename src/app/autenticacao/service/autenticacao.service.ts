@@ -18,7 +18,10 @@ export class AutenticacaoService{
             const access_token:string = res['access_token'];
             const refresh_token:string = res['refresh_token'];
             const expires_in:number = res['expires_in'];
-            this.cookieService.set('access_token', access_token, expires_in);
+            const dataLimiteToken = new Date();
+            dataLimiteToken.setSeconds(dataLimiteToken.getSeconds() + expires_in);
+            this.cookieService.set('access_token', access_token, dataLimiteToken);
+            this.cookieService.set('refresh_token', refresh_token, expires_in);
         }))
     }
 }
