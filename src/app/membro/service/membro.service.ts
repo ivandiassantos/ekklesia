@@ -13,8 +13,14 @@ export class MembroService {
         return this.httpClient.post('http://localhost:9093/v1/membro/cadastrobasico', membro);
     }
 
-    listar() {
-        return this.httpClient.get<Membro[]>('http://localhost:9093/v1/membro/', {
+    listar(indice:number, itensPorPagina:number) {
+        return this.httpClient.get<Membro[]>('http://localhost:9093/v1/membro/?page='+indice+'&size='+itensPorPagina, {
+            headers: new HttpHeaders({ 'Content-type': 'application/json; charset=utf-8' })
+        });
+    }
+
+    totalDeMembrosCadastrados() {
+        return this.httpClient.get<number>('http://localhost:9093/v1/membro/totalMembrosCadastrados', {
             headers: new HttpHeaders({ 'Content-type': 'application/json; charset=utf-8' })
         });
     }
